@@ -2,10 +2,8 @@
 
 namespace app\modules\ord;
 
-class Module
+class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\ord\controllers';
-
     public function init()
     {
         parent::init();

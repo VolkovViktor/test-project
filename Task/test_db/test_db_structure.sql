@@ -5,7 +5,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Table structure for table `order`
 --
 
 CREATE TABLE `orders` (
@@ -47,7 +47,7 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `orders`
+-- Indexes for table `order`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
@@ -69,7 +69,7 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `orders`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100001;
