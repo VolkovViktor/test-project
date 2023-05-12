@@ -8,5 +8,6 @@
 </head>
 <body>
   Hi
+  <?php echo $order['id']; ?>
 </body>
 <html>

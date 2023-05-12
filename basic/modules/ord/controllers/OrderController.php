@@ -2,12 +2,13 @@
 
 namespace app\modules\ord\controllers;
 
+use app\modules\ord\models\Order;
 use yii\web\Controller;
 
 class OrderController extends Controller
 {
     public function actionOrders() {
-        $model = 0;
-        return $this->render('orders');
+        $order = Order::findOne(1);
+        return $this->render('orders', compact('order'));
     }
 }
