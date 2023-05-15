@@ -12,19 +12,13 @@ class Order extends ActiveRecord
         return 'orders';
     }
 
-    public function getAllOrders($filterParamName, $filterParamValue, $params) {
+    public function getAllOrders($params) {
         $query = new Query;
-        if ($filterParamName == 'status') {
-            $params = ['status' => $filterParamValue];
-        }
-        elseif(!$filterParamName) {
-            $params[$filterParamName] = $filterParamValue;
-        }
         $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
         return [$orders, $params];
     }
 
-    public function findOrder($findParamName, $findParamValue, $params) {
+    public function findOrder($params, $findParamName, $findParamValue) {
         if (array_key_exists('status', $params)) { // Clear filters
             $params = ['status' => $params['status']];
         } else {
