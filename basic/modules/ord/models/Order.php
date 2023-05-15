@@ -15,7 +15,7 @@ class Order extends ActiveRecord
     public function getAllOrders($params) {
         $query = new Query;
         $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
-        return [$orders, $params];
+        return $orders;
     }
 
     public function findOrder($params, $findParamName, $findParamValue) {
@@ -25,9 +25,8 @@ class Order extends ActiveRecord
             $params = [];
         }
         $query = new Query;
-        $findParamValue = '%' . $findParamValue . '%';
-        $order = $query->select('*')->from('orders')->where($params)->andWhere(['like', $findParamName, "%$findParamValue%", false])->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
-        return [$order, $params];
+        $order = $query->select('*')->from('orders')->where($params)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        return $order;
     }
 
 

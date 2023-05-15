@@ -7,8 +7,11 @@ use yii\web\Controller;
 
 class OrderController extends Controller
 {
-    public function actionOrders($params = [], $findParamName = 'id', $findParamValue = '') { // $params = ['status' => '0'];
-
+    public function actionOrders() {
+        $findParamName = 'id';
+        $findParamValue = '1';
+        $params = []; // Массив папаметров фильтрации будет формироваться из полей фильтрации (из формы)
+        // $params = ['status' => '0']; // Debug
         $order = Order::getAllOrders($params);
         $findedOrder = Order::findOrder($params, $findParamName, $findParamValue);
         $countOrders = count($order); // for filter by service_id
