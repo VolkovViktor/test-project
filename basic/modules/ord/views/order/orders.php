@@ -1,4 +1,6 @@
-
+<?php
+/** @var array $order */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,6 @@
 </head>
 <body>
   Hi
-  <?php echo $order['id']; ?>
+  <?php var_dump($order); ?>
 </body>
 <html>
