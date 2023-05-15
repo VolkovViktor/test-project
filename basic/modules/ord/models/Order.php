@@ -7,30 +7,34 @@ use yii\db\Query;
 
 class Order extends ActiveRecord
 {
-    public static $params = [];
-    //public static $params = ['status' => '1']; // Debug
     public static function tableName()
     {
         return 'orders';
     }
 
-    public function getAllOrders($filterParamName, $filterParamValue) {
+    public function getAllOrders($filterParamName, $filterParamValue, $params) {
         $query = new Query;
         if ($filterParamName == 'status') {
-            self::$params = ['status' => $filterParamValue];
+            $params = ['status' => $filterParamValue];
         }
-        else {
-            self::$params[$filterParamName] = $filterParamValue;
+        elseif(!$filterParamName) {
+            $params[$filterParamName] = $filterParamValue;
         }
-        // $orders = self::$params; // Debug
-        $orders = $query->select('*')->from('orders')->where(self::$params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
-        return $orders;
+        $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        return [$orders, $params];
     }
 
-    public function findOrder($findParamName, $findParamValue) {
+    public function findOrder($findParamName, $findParamValue, $params) {
+        if (array_key_exists('status', $params)) { // Clear filters
+            $params = ['status' => $params['status']];
+        } else {
+            $params = [];
+        }
         $query = new Query;
         $findParamValue = '%' . $findParamValue . '%';
-        $order = $query->select('*')->from('orders')->where(['like', $findParamName, "%$findParamValue%", false])->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
-        return $order;
+        $order = $query->select('*')->from('orders')->where($params)->andWhere(['like', $findParamName, "%$findParamValue%", false])->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        return [$order, $params];
     }
+
+
 }
