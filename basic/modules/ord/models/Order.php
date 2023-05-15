@@ -14,16 +14,23 @@ class Order extends ActiveRecord
         return 'orders';
     }
 
-    public function getAllOrders($filterParam, $paramName) {
+    public function getAllOrders($filterParamName, $filterParamValue) {
         $query = new Query;
-        if ($filterParam == 'status') {
-            self::$params = ['status' => $paramName];
+        if ($filterParamName == 'status') {
+            self::$params = ['status' => $filterParamValue];
         }
         else {
-            self::$params[$filterParam] = $paramName;
+            self::$params[$filterParamName] = $filterParamValue;
         }
         // $orders = self::$params; // Debug
-        $orders = $query->select('*')->from('orders')->where(self::$params)->orderBy('id DESC')->limit(100)->all();
+        $orders = $query->select('*')->from('orders')->where(self::$params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
         return $orders;
+    }
+
+    public function findOrder($findParamName, $findParamValue) {
+        $query = new Query;
+        $findParamValue = '%' . $findParamValue . '%';
+        $order = $query->select('*')->from('orders')->where(['like', $findParamName, "%$findParamValue%", false])->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        return $order;
     }
 }

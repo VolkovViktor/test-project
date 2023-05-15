@@ -1,5 +1,7 @@
 <?php
 /** @var array $order */
+/** @var array $findedOrder */
+/** @var integer $countOrders */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +12,12 @@
 </head>
 <body>
   Hi
-  <?php var_dump($order); ?>
+  <?php
+  var_dump($countOrders);
+  echo "<br/> <br/>";
+  var_dump($findedOrder);
+  echo "<br/> <br/>";
+  var_dump($order);
+  ?>
 </body>
 <html>

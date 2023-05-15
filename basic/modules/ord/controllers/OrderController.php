@@ -7,8 +7,10 @@ use yii\web\Controller;
 
 class OrderController extends Controller
 {
-    public function actionOrders($filterParam = '', $paramName = '') {
-        $order = Order::getAllOrders($filterParam = 'mode', $paramName = '1');
-        return $this->render('orders', compact('order'));
+    public function actionOrders($filterParamName = '', $filterParamValue = '', $findParamName = 'id', $findParamValue = '') {
+        $order = Order::getAllOrders($filterParamName = 'mode', $filterParamValue = '1');
+        $findedOrder = Order::findOrder($findParamName, $findParamValue);
+        $countOrders = count($order); // for filter by service_id
+        return $this->render('orders', compact('order', 'findedOrder', 'countOrders'));
     }
 }
