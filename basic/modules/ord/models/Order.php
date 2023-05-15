@@ -7,24 +7,23 @@ use yii\db\Query;
 
 class Order extends ActiveRecord
 {
+    public static $params = [];
+    //public static $params = ['status' => '1']; // Debug
     public static function tableName()
     {
         return 'orders';
     }
 
-    public function getAllOrders($filterParam, $paramName, $params) {
+    public function getAllOrders($filterParam, $paramName) {
         $query = new Query;
         if ($filterParam == 'status') {
-            $params = ['status' => $paramName];
+            self::$params = ['status' => $paramName];
         }
         else {
-            //if (!)
-            //$params = ['mode' => $paramName];
-            $params[$filterParam] = $paramName;
+            self::$params[$filterParam] = $paramName;
         }
-        //$params = implode(',', $params);
-        //$orders = $params;
-        $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC')->limit(100)->all();
+        // $orders = self::$params; // Debug
+        $orders = $query->select('*')->from('orders')->where(self::$params)->orderBy('id DESC')->limit(100)->all();
         return $orders;
     }
 }
