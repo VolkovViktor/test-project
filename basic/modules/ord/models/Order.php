@@ -19,11 +19,6 @@ class Order extends ActiveRecord
     }
 
     public function findOrder($params, $findParamName, $findParamValue) {
-        if (array_key_exists('status', $params)) { // Clear filters
-            $params = ['status' => $params['status']];
-        } else {
-            $params = [];
-        }
         $query = new Query;
         $order = $query->select('*')->from('orders')->where($params)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
         return $order;
