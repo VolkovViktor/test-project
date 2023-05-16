@@ -1,7 +1,12 @@
 <?php
 /** @var array $order */
+/** @var array $pages */
+/** @var array $models */
 /** @var array $findedOrder */
-/** @var integer $countOrders */
+
+
+use yii\widgets\LinkPager;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +18,19 @@
 <body>
   Hi
   <?php
-  var_dump($countOrders);
+  foreach ($models as $model) {
+    print_r($model);
+  }
+  echo "<br/> <br/>";
+  ?>
+  ?>
+  <?= LinkPager::widget([
+      'pagination' => $pages,
+  ]); ?>
+  <?php
   echo "<br/> <br/>";
   var_dump($findedOrder);
   echo "<br/> <br/>";
-  var_dump($order);
   ?>
 </body>
 <html>

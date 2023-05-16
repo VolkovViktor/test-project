@@ -14,13 +14,13 @@ class Order extends ActiveRecord
 
     public function getAllOrders($params) {
         $query = new Query;
-        $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC')->limit(100)->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        $orders = $query->select('*')->from('orders')->where($params)->orderBy('id DESC');
         return $orders;
     }
 
     public function findOrder($params, $findParamName, $findParamValue) {
         $query = new Query;
-        $order = $query->select('*')->from('orders')->where($params)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all(); // Delete Limit 100 !!!!!!!!!!!!!!!!
+        $order = $query->select('*')->from('orders')->where($params)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all();
         return $order;
     }
 
