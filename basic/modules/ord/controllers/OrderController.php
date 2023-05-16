@@ -3,8 +3,10 @@
 namespace app\modules\ord\controllers;
 
 use app\modules\ord\models\Order;
+use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\web\Controller;
+
 
 class OrderController extends Controller
 {
@@ -18,10 +20,18 @@ class OrderController extends Controller
         $countOrders = count($order->all());
         $findedOrder = Order::findOrder($findParamName, $findParamValue, $status);
         //$countOrders = count($order); // for filter by service_id
-        $pages = new Pagination(['totalCount' => $order->count(), 'pageSize' => 100]);
+        /*$pages = new Pagination(['totalCount' => $order->count(), 'pageSize' => 100]);
         $models = $order->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
-        return $this->render('orders', compact('order', 'findedOrder', 'models', 'pages', 'countOrders'));
+        */
+        $dataProvider = new ActiveDataProvider([
+            'query' => $order,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+        ]);
+
+        return $this->render('orders', compact('order', 'findedOrder', 'countOrders','dataProvider'));
     }
 }
