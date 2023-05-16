@@ -3,7 +3,7 @@
 /** @var array $pages */
 /** @var array $models */
 /** @var array $findedOrder */
-
+/** @var int $countOrders */
 
 use yii\widgets\LinkPager;
 
@@ -18,6 +18,8 @@ use yii\widgets\LinkPager;
 <body>
   Hi
   <?php
+  echo $countOrders;
+  echo "<br/> <br/>";
   foreach ($models as $model) {
     print_r($model);
   }

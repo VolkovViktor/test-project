@@ -18,9 +18,9 @@ class Order extends ActiveRecord
         return $orders;
     }
 
-    public function findOrder($params, $findParamName, $findParamValue) {
+    public function findOrder($findParamName, $findParamValue, $status) {
         $query = new Query;
-        $order = $query->select('*')->from('orders')->where($params)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all();
+        $order = $query->select('*')->from('orders')->where($status)->andWhere(["$findParamName" => "$findParamValue"])->orderBy('id DESC')->all();
         return $order;
     }
 
