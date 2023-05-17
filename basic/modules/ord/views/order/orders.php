@@ -54,18 +54,10 @@ GridView::widget([
         'quantity',
 
         [
-            'header' => 'CountService',
-            'attribute' => 'service_id',
-            'value' => function ($data) use ($countServices) {
-                return $countServices[$data['service_id']-1]['count'];
-            },
-        ],
-
-        [
             'header' => 'Service',
             'attribute' => 'service_id',
-            'value' => function ($data) use ($services) {
-                return $services[$data['service_id']-1]['name'];
+            'value' => function ($data) use ($services, $countServices) {
+                return $countServices[$data['service_id']-1]['count']." ".$services[$data['service_id']-1]['name'];
             },
         ],
 
@@ -107,48 +99,5 @@ GridView::widget([
     ],
 ]);
 ?>
-
-<!--
-< ?= ListView::widget([
-  'dataProvider' => $dataProvider,
-  'viewParams' => [
-      'fullView' => true,
-      'context' => 'main-page',
-  ],
-]);
-?>
--->
-<!--
-  < ?= LinkPager::widget([
-      'pagination' => $pages,
-  ]); ?>
-  < ?php
-  echo "<br/> <br/>";
-  var_dump($findedOrder);
-  echo "<br/> <br/>";
-  ?>
-  -->
-<!--
-  <div>
-
-      < ?= DetailView::widget([
-          'model' => $models,
-          'attributes' => [
-              'id',
-              'user_id' => 'user',
-              'link',
-              'quantity',
-              'service_id' => 'service',
-              'status',
-              'mode',
-              'created_it' => 'created',
-          ],
-          'options' => [
-              'class' => 'nav nav-tabs',
-          ],
-      ]) ?>
-
-  </div>
--->
 </body>
 <html>
