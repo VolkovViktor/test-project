@@ -24,6 +24,7 @@ class OrderController extends Controller
         $findedOrder = Order::findOrder($findParamName, $findParamValue, $status);
         $users = User::getAllUsers();
         $services = Service::getAllServices();
+        $countServices = Order::getCountServices();
         /*
         $pages = new Pagination(['totalCount' => $order->count(), 'pageSize' => 100]);
         $models = $order->offset($pages->offset)
@@ -38,6 +39,6 @@ class OrderController extends Controller
             ],
         ]);
 
-        return $this->render('orders', compact('order', 'findedOrder', 'countOrders', 'dataProvider', 'users', 'services'));
+        return $this->render('orders', compact('order', 'findedOrder', 'countOrders', 'dataProvider', 'users', 'services', 'countServices'));
     }
 }

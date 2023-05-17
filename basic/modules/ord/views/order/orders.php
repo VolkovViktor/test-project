@@ -5,6 +5,7 @@
 /** @var array $models */
 /** @var array $findedOrder */
 /** @var array $dataProvider */
+/** @var array $countServices */
 
 /** @var int $countOrders */
 
@@ -51,6 +52,14 @@ GridView::widget([
         'link',
 
         'quantity',
+
+        [
+            'header' => 'CountService',
+            'attribute' => 'service_id',
+            'value' => function ($data) use ($countServices) {
+                return $countServices[$data['service_id']-1]['count'];
+            },
+        ],
 
         [
             'header' => 'Service',
