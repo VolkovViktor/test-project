@@ -16,8 +16,8 @@ class User extends ActiveRecord
     public function getAllUsers()
     {
         $query = new Query;
-        $orders = $query->select('*')->from('users')->all();
-        return $orders;
+        $users = $query->select('*')->from('users')->all();
+        return $users;
     }
 
 }

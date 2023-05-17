@@ -3,6 +3,7 @@
 namespace app\modules\ord\controllers;
 
 use app\modules\ord\models\Order;
+use app\modules\ord\models\Service;
 use app\modules\ord\models\User;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -22,6 +23,7 @@ class OrderController extends Controller
         $countOrders = count($order->all()); // for filter by service_id
         $findedOrder = Order::findOrder($findParamName, $findParamValue, $status);
         $users = User::getAllUsers();
+        $services = Service::getAllServices();
         /*
         $pages = new Pagination(['totalCount' => $order->count(), 'pageSize' => 100]);
         $models = $order->offset($pages->offset)
@@ -36,6 +38,6 @@ class OrderController extends Controller
             ],
         ]);
 
-        return $this->render('orders', compact('order', 'findedOrder', 'countOrders', 'dataProvider', 'users'));
+        return $this->render('orders', compact('order', 'findedOrder', 'countOrders', 'dataProvider', 'users', 'services'));
     }
 }

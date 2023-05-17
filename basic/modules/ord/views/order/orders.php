@@ -1,6 +1,7 @@
 <?php
 /** @var array $order */
 /** @var array $users */
+/** @var array $services */
 /** @var array $models */
 /** @var array $findedOrder */
 /** @var array $dataProvider */
@@ -53,7 +54,10 @@ GridView::widget([
 
         [
             'header' => 'Service',
-            'attribute' => 'service_id'
+            'attribute' => 'service_id',
+            'value' => function ($data) use ($services) {
+                return $services[$data['service_id']-1]['name'];
+            },
         ],
 
         [

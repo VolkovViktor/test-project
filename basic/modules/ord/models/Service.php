@@ -13,4 +13,11 @@ class Service extends ActiveRecord
         return 'services';
     }
 
+    public function getAllServices()
+    {
+        $query = new Query;
+        $services = $query->select('*')->from('services')->all();
+        return $services;
+    }
+
 }
