@@ -27,17 +27,25 @@ class SearchOrder extends Order
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    ['order_id' => SORT_DESC],
+                ],
+            ],
+            'pagination' => [
+                'pageSize' => 100,
+            ],
         ]);
 
-        // загружаем данные формы поиска и производим валидацию
+        $this->load($params);
+
+        //загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         // изменяем запрос добавляя в его фильтрацию
         $query->andFilterWhere(['mode' => $this->mode]);
-        //$query->andFilterWhere(['like', 'title', $this->title])
-            //->andFilterWhere(['like', 'creation_date', $this->creation_date]);
 
         return $dataProvider;
     }

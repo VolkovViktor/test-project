@@ -6,6 +6,7 @@ use app\modules\ord\models\Order;
 use app\modules\ord\models\SearchOrder;
 use app\modules\ord\models\Service;
 use app\modules\ord\models\User;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -18,29 +19,16 @@ class OrderController extends Controller
         $findParamName = 'id';
         $findParamValue = '1';
         $status = [];
-        $params = []; // Массив папаметров фильтрации будет формироваться из полей фильтрации (из формы)
-        // $params = ['status' => '0']; // Debug
-        $order = Order::getAllOrders($params);
-        $countOrders = count($order->all()); // for filter by service_id
+
         $findedOrder = Order::findOrder($findParamName, $findParamValue, $status);
         $users = User::getAllUsers();
         $services = Service::getAllServices();
         $countServices = Order::getCountServices();
         $searchModel = new SearchOrder();
-        /*
-        $pages = new Pagination(['totalCount' => $order->count(), 'pageSize' => 100]);
-        $models = $order->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
-        */
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+        $countOrders = Order::getCountOrders(); // for filter by service_id
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $order,
-            'pagination' => [
-                'pageSize' => 100,
-            ],
-        ]);
 
-        return $this->render('orders', compact('order', 'findedOrder', 'countOrders', 'dataProvider', 'users', 'services', 'countServices', 'searchModel'));
+        return $this->render('orders', compact( 'dataProvider', 'searchModel', 'findedOrder', 'countOrders', 'users', 'services', 'countServices'));
     }
 }

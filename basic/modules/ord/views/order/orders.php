@@ -19,44 +19,37 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-Hi
-<?php
-echo $users[1]['id'];
 echo "<br/> <br/>";
 echo $countOrders;
 echo "<br/> <br/>";
-
-?>
-
-<?=
-GridView::widget([
+echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
-        'id',
+
+        [
+            'header' => 'Id',
+            'attribute' => 'id',
+        ],
 
         [
             'header' => 'User',
             'attribute' => 'user_id',
-            //'filter' => User::getAllUsers(),
             'value' => function ($data) use ($users) {
                 return $users[$data['user_id']-1]['last_name'];
             },
         ],
 
-        'link',
+        [
+            'header' => 'Link',
+            'attribute' => 'link',
+        ],
 
-        'quantity',
+        [
+            'header' => 'Quantity',
+            'attribute' => 'quantity',
+        ],
 
         [
             'header' => 'Service',
@@ -86,13 +79,14 @@ GridView::widget([
             'header' => 'Mode',
             'attribute' => 'mode',
             'filter' => [0 => 'Manual', 1 => 'Auto',],
+            'filterInputOptions' => ['prompt' => 'All'],
             'value' => function ($data) {
-                $status = $data['mode'];
+                $mode = $data['mode'];
                 $arr = array(
                     0 => 'Manual',
                     1 => 'Auto',
                 );
-                return $arr[$status];
+                return $arr[$mode];
             },
         ],
 
@@ -105,5 +99,3 @@ GridView::widget([
     ],
 ]);
 ?>
-</body>
-<html>

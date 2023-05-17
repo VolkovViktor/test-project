@@ -26,6 +26,11 @@ class Order extends ActiveRecord
         return $order;
     }
 
+    public function getCountOrders() {
+        $query = new Query;
+        $countOrders = $query->select('count(*) as count')->from('orders')->all();
+        return $countOrders[0]['count'];
+    }
     public function getCountServices() {
         $query = new Query;
         $orderService = $query->select('service_id, count(*) as count')->from('orders')->groupBy('service_id')->all();
