@@ -6,9 +6,12 @@
 /** @var array $findedOrder */
 /** @var array $dataProvider */
 /** @var array $countServices */
+/** @var array $searchModel */
 
 /** @var int $countOrders */
 
+use app\modules\ord\models\Order;
+use app\modules\ord\models\User;
 use yii\grid\GridView;
 use yii\widgets\DetailView;
 use yii\widgets\LinkPager;
@@ -37,6 +40,7 @@ echo "<br/> <br/>";
 <?=
 GridView::widget([
     'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'id',
@@ -44,6 +48,7 @@ GridView::widget([
         [
             'header' => 'User',
             'attribute' => 'user_id',
+            //'filter' => User::getAllUsers(),
             'value' => function ($data) use ($users) {
                 return $users[$data['user_id']-1]['last_name'];
             },
@@ -80,6 +85,7 @@ GridView::widget([
         [
             'header' => 'Mode',
             'attribute' => 'mode',
+
             'value' => function ($data) {
                 $status = $data['mode'];
                 $arr = array(
