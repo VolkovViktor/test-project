@@ -35,10 +35,7 @@ echo GridView::widget([
 
         [
             'header' => 'User',
-            'attribute' => 'user_last_name',
-            //'value' => function ($data) use ($users) {
-            //    return $users[$data['user_id']-1]['last_name'];
-            //},
+            'attribute' => 'user.last_name',
         ],
 
         [
@@ -52,11 +49,16 @@ echo GridView::widget([
         ],
 
         [
-            'header' => 'Service',
+            'header' => '.',
             'attribute' => 'service_id',
-            'value' => function ($data) use ($services, $countServices) {
-                return $countServices[$data['service_id']-1]['count']." ".$services[$data['service_id']-1]['name'];
+            'value' => function ($data) use ($countServices) {
+                    return $countServices[$data['service_id']-1]['count'];
             },
+        ],
+
+        [
+            'header' => 'Service',
+            'attribute' => 'service.name',
         ],
 
         [
