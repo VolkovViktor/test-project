@@ -85,7 +85,7 @@ GridView::widget([
         [
             'header' => 'Mode',
             'attribute' => 'mode',
-
+            'filter' => [0 => 'Manual', 1 => 'Auto',],
             'value' => function ($data) {
                 $status = $data['mode'];
                 $arr = array(

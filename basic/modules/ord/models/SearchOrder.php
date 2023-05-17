@@ -11,7 +11,7 @@ class SearchOrder extends Order
     {
         // только поля определенные в rules() будут доступны для поиска
         return [
-            [['id'], 'integer'],
+            [['mode'], 'integer'],
         ];
     }
 
@@ -35,7 +35,7 @@ class SearchOrder extends Order
         }
 
         // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['mode' => $this->mode]);
         //$query->andFilterWhere(['like', 'title', $this->title])
             //->andFilterWhere(['like', 'creation_date', $this->creation_date]);
 
