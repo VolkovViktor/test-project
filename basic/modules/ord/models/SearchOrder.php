@@ -24,29 +24,33 @@ class SearchOrder extends Order
     public function search($params)
     {
         $query = Order::find();
+        $query->joinWith('user');
+        $query->joinWith('service');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    ['order_id' => SORT_DESC],
-                ],
-            ],
             'pagination' => [
                 'pageSize' => 100,
             ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
         ]);
 
-        $this->load($params);
+        //$this->load($params);
 
         //загружаем данные формы поиска и производим валидацию
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
             return $dataProvider;
         }
 
         // изменяем запрос добавляя в его фильтрацию
         $query->andFilterWhere(['mode' => $this->mode]);
-
+        //var_dump($this->load($params));
         return $dataProvider;
     }
 }

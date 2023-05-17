@@ -35,10 +35,10 @@ echo GridView::widget([
 
         [
             'header' => 'User',
-            'attribute' => 'user_id',
-            'value' => function ($data) use ($users) {
-                return $users[$data['user_id']-1]['last_name'];
-            },
+            'attribute' => 'user_last_name',
+            //'value' => function ($data) use ($users) {
+            //    return $users[$data['user_id']-1]['last_name'];
+            //},
         ],
 
         [
