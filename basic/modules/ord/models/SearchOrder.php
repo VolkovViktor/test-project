@@ -41,15 +41,12 @@ class SearchOrder extends Order
 
         //$this->load($params);
 
-        //загружаем данные формы поиска и производим валидацию
-        $this->load($params);
-
-        if (!$this->validate()) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['mode' => $this->mode]);
+        $query->andFilterWhere(['order.mode' => $this->mode]);
         //var_dump($this->load($params));
         return $dataProvider;
     }
