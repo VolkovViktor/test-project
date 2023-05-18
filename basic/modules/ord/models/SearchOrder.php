@@ -27,7 +27,6 @@ class SearchOrder extends Order
         $query = Order::find();
         $query->joinWith('user');
         $query->joinWith('service');
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -42,16 +41,36 @@ class SearchOrder extends Order
 
         //$this->load($params);
 
+        $statuses = array(
+            'pending' => 0,
+            'in progress' => 1,
+            'completed' => 2,
+            'canceled' => 3,
+            'error' => 4
+        );
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['mode' => $this->mode]);
 
-        if ($params['status']=='pending') {
-            $query->andFilterWhere(['status' => 0]);
+        if(!$params['update']) {
+            $query->filterWhere(['status' => $statuses[$params['status']]]);
         }
+
+
+
+        // изменяем запрос добавляя в его фильтрацию
+        if($params['update'] == 'tr') {
+            $query->andFilterWhere(['mode' => $this->mode]);
+        }
+
+        if($params['search'] == 'ok') {
+            $query->andFilterWhere(['mode' => $this->mode]);
+        }
+
+
+
         //var_dump($params);
         return $dataProvider;
     }

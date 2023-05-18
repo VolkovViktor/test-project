@@ -22,6 +22,7 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 
+
 echo "<br/> <br/>";
 echo $countOrders;
 echo "<br/> <br/>";
@@ -39,14 +40,15 @@ echo Html::submitButton('Orders');
 echo "<br/> <br/>";
 echo $form->field($searchModel, 'id')->textInput(['placeholder' => "Search orders"])->label('');
 echo $form->field($searchModel, 'id')->dropDownList($items,$params)->label('');
-echo Html::submitButton('Search');
+echo Html::submitButton('Search', ['name' => 'search', 'value' => 'ok']);
 echo "<br/> <br/>";
 echo Html::submitButton('All orders');
 echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);
-echo Html::submitButton('In progress');
-echo Html::submitButton('Completed');
-echo Html::submitButton('Canceled');
-echo Html::submitButton('Error');
+echo Html::submitButton('In progress', ['name' => 'status', 'value' => 'in progress']);
+echo Html::submitButton('Completed', ['name' => 'status', 'value' => 'completed']);
+echo Html::submitButton('Canceled', ['name' => 'status', 'value' => 'canceled']);
+echo Html::submitButton('Error', ['name' => 'status', 'value' => 'error']);
+echo Html::submitButton('Update', ['name' => 'update', 'value' => 'tr']);
 
 
 echo GridView::widget([
@@ -112,7 +114,7 @@ echo GridView::widget([
             'filter' => [0 => 'Manual', 1 => 'Auto',],
             'filterInputOptions' => ['prompt' => 'All'],
             'format' => 'raw',
-            'content'=>function($data){
+            'value'=>function($data){
                 return $data['mode'] == 0 ? "Manual" : "Auto";
             }
         ],
