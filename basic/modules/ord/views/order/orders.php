@@ -24,7 +24,7 @@ echo "<br/> <br/>";
 echo $countOrders;
 echo "<br/> <br/>";
 
-$form = ActiveForm::begin();
+$form = ActiveForm::begin(['method'=>'get', 'action' => 'index.php?r=ord/order/orders']);
 $items = [
     '0' => 'Order ID',
     '1' => 'Link',
@@ -45,7 +45,7 @@ echo Html::submitButton('In progress');
 echo Html::submitButton('Completed');
 echo Html::submitButton('Canceled');
 echo Html::submitButton('Error');
-ActiveForm::end();
+
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -123,4 +123,5 @@ echo GridView::widget([
         //['class' => 'yii\grid\ActionColumn'],
     ],
 ]);
+ActiveForm::end();
 ?>

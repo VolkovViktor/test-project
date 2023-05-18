@@ -25,7 +25,7 @@ class OrderController extends Controller
         $services = Service::getAllServices();
         $countServices = Order::getCountServices();
         $searchModel = new SearchOrder();
-        //var_dump(Yii::$app->request->get());
+        //var_dump(Yii::$app->request->get()->SearchOrder);
         $dataProvider = $searchModel->search(Yii::$app->request->get());
         $countOrders = Order::getCountOrders(); // for filter by service_id
 

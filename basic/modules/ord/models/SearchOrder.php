@@ -46,7 +46,7 @@ class SearchOrder extends Order
         }
 
         // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['order.mode' => $this->mode]);
+        $query->andFilterWhere(['mode' => $this->mode]);
         //var_dump($this->load($params));
         return $dataProvider;
     }
