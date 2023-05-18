@@ -12,7 +12,9 @@
 
 use app\modules\ord\models\Order;
 use app\modules\ord\models\User;
+
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 use yii\widgets\LinkPager;
@@ -40,7 +42,7 @@ echo $form->field($searchModel, 'id')->dropDownList($items,$params)->label('');
 echo Html::submitButton('Search');
 echo "<br/> <br/>";
 echo Html::submitButton('All orders');
-echo Html::submitButton('Pending');
+echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);
 echo Html::submitButton('In progress');
 echo Html::submitButton('Completed');
 echo Html::submitButton('Canceled');

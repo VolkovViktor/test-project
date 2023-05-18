@@ -2,6 +2,7 @@
 
 namespace app\modules\ord\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -47,7 +48,11 @@ class SearchOrder extends Order
 
         // изменяем запрос добавляя в его фильтрацию
         $query->andFilterWhere(['mode' => $this->mode]);
-        //var_dump($this->load($params));
+
+        if ($params['status']=='pending') {
+            $query->andFilterWhere(['status' => 0]);
+        }
+        //var_dump($params);
         return $dataProvider;
     }
 }
