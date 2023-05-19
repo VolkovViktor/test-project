@@ -8,6 +8,8 @@ services:
       - './basic:/var/www/html'
     depends_on:
       - mysql
+    ports:
+      - 9000:9000
 
   nginx:
     container_name: nginx
@@ -17,6 +19,8 @@ services:
     volumes:
       - './basic/web:/var/www/html'
       - './docker/nginx/conf.d:/etc/nginx/conf.d'
+    links:
+      - php:waapi_php_1
 
   mysql:
     container_name: mysql

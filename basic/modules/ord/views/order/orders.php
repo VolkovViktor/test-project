@@ -54,8 +54,8 @@ ActiveForm::end();
 
 $form2 = ActiveForm::begin(['method' => 'get', 'id' => 'form2', 'action' => 'index.php?r=ord/order/orders']);
 echo "<br/> <br/>";
-echo Html::submitButton('All orders');
-echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);
+echo Html::a('All orders', 'index.php?r=ord/order/orders');
+echo Html::a('Pending', 'index.php?r=ord%2Forder%2Forders&status=pending&SearchOrder%5Bmode%5D=');
 echo Html::submitButton('In progress', ['name' => 'status', 'value' => 'in progress']);
 echo Html::submitButton('Completed', ['name' => 'status', 'value' => 'completed']);
 echo Html::submitButton('Canceled', ['name' => 'status', 'value' => 'canceled']);
