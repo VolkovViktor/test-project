@@ -10,6 +10,7 @@
 
 /** @var int $countOrders */
 
+use app\modules\ord\assets\OrdAssets;
 use app\modules\ord\models\Order;
 use app\modules\ord\models\User;
 
@@ -22,27 +23,12 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
 
+$bundle = OrdAssets::register($this);
 
 echo "<br/> <br/>";
 echo $countOrders;
 echo "<br/> <br/>";
-/*
-$form = ActiveForm::begin(['method'=>'get', 'action' => 'index.php?r=ord/order/search']);
-$items = [
-    '0' => 'Order ID',
-    '1' => 'Link',
-    '2'=>'Username'
-];
-$params = [
-    'prompt' => 'Order ID'
-];
-echo Html::submitButton('Orders');
-echo "<br/> <br/>";
-echo $form->field($searchModel, 'id')->textInput(['placeholder' => "Search orders"])->label('');
-echo $form->field($searchModel, 'id')->dropDownList($items,$params)->label('');
-echo Html::submitButton('search', ['name' => 'search', 'value' => 'ok']);
-ActiveForm::end();
-*/
+
 ?>
 
 <?php
@@ -55,7 +41,8 @@ ActiveForm::end();
 $form2 = ActiveForm::begin(['method' => 'get', 'id' => 'form2', 'action' => 'index.php?r=ord/order/orders']);
 echo "<br/> <br/>";
 echo Html::a('All orders', 'index.php?r=ord/order/orders');
-echo Html::a('Pending', 'index.php?r=ord%2Forder%2Forders&status=pending&SearchOrder%5Bmode%5D=');
+//echo Html::a('Pending', 'index.php?r=ord%2Forder%2Forders&status=pending&SearchOrder%5Bmode%5D=');
+echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);
 echo Html::submitButton('In progress', ['name' => 'status', 'value' => 'in progress']);
 echo Html::submitButton('Completed', ['name' => 'status', 'value' => 'completed']);
 echo Html::submitButton('Canceled', ['name' => 'status', 'value' => 'canceled']);
@@ -93,6 +80,8 @@ echo GridView::widget([
         [
             'header' => '.',
             'attribute' => 'service_id',
+            'filter' => [$countServices],
+            'filterInputOptions' => ['prompt' => $countOrders . 'All'],
             'value' => function ($data) use ($countServices) {
                 return $countServices[$data['service_id'] - 1]['count'];
             },

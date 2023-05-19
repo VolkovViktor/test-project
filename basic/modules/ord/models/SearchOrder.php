@@ -13,6 +13,7 @@ class SearchOrder extends Order
         // только поля определенные в rules() будут доступны для поиска
         return [
             [['mode'], 'integer'],
+            [['service_id'], 'integer'],
         ];
     }
 
@@ -39,6 +40,8 @@ class SearchOrder extends Order
             ],
         ]);
 
+        $services = $query->select('count(*) as count, services.name'); ///////////////////
+
         //$this->load($params);
 
         $statuses = array(
@@ -54,24 +57,22 @@ class SearchOrder extends Order
         }
 
 
-        if(!$params['update']) {
+        if (!$params['update']) {
             $query->filterWhere(['status' => $statuses[$params['status']]]);
         }
 
 
-
         // изменяем запрос добавляя в его фильтрацию
-        if($params['update'] == 'tr') {
+        if ($params['update'] == 'tr') {
             $query->andFilterWhere(['mode' => $this->mode]);
         }
 
-        if($params['search'] == 'ok') {
+        if ($params['search'] == 'ok') {
             $query->andFilterWhere(['mode' => $this->mode]);
         }
-
-
 
         //var_dump($params);
         return $dataProvider;
     }
+
 }

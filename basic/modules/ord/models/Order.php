@@ -22,7 +22,7 @@ class Order extends ActiveRecord
         $orderService = $query->select('service_id, count(*) as count')->from('orders')->groupBy('service_id')->all();
         return $orderService;
     }
-
+    
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
