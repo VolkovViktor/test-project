@@ -26,8 +26,8 @@ use yii\widgets\ListView;
 echo "<br/> <br/>";
 echo $countOrders;
 echo "<br/> <br/>";
-
-$form = ActiveForm::begin(['method'=>'get', 'action' => 'index.php?r=ord/order/orders']);
+/*
+$form = ActiveForm::begin(['method'=>'get', 'action' => 'index.php?r=ord/order/search']);
 $items = [
     '0' => 'Order ID',
     '1' => 'Link',
@@ -40,7 +40,24 @@ echo Html::submitButton('Orders');
 echo "<br/> <br/>";
 echo $form->field($searchModel, 'id')->textInput(['placeholder' => "Search orders"])->label('');
 echo $form->field($searchModel, 'id')->dropDownList($items,$params)->label('');
-echo Html::submitButton('Search', ['name' => 'search', 'value' => 'ok']);
+echo Html::submitButton('search', ['name' => 'search', 'value' => 'ok']);
+ActiveForm::end();
+*/
+?>
+
+<form method="get" action="index.php?r=ord/order/search">
+    <input type="text" name="search_text"/>
+    <select name="search_attr">
+        <option value="id">Orders Id</option>
+        <option value="user_id">Orders User</option>
+        <option value="link">Orders Link</option>
+    </select>
+    <button name="search" type="submit">Search</button>
+</form>
+
+
+<?php
+$form1 = ActiveForm::begin(['method' => 'get', 'action' => 'index.php?r=ord/order/orders']);
 echo "<br/> <br/>";
 echo Html::submitButton('All orders');
 echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);
@@ -49,7 +66,6 @@ echo Html::submitButton('Completed', ['name' => 'status', 'value' => 'completed'
 echo Html::submitButton('Canceled', ['name' => 'status', 'value' => 'canceled']);
 echo Html::submitButton('Error', ['name' => 'status', 'value' => 'error']);
 echo Html::submitButton('Update', ['name' => 'update', 'value' => 'tr']);
-
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -83,7 +99,7 @@ echo GridView::widget([
             'header' => '.',
             'attribute' => 'service_id',
             'value' => function ($data) use ($countServices) {
-                    return $countServices[$data['service_id']-1]['count'];
+                return $countServices[$data['service_id'] - 1]['count'];
             },
         ],
 
@@ -114,7 +130,7 @@ echo GridView::widget([
             'filter' => [0 => 'Manual', 1 => 'Auto',],
             'filterInputOptions' => ['prompt' => 'All'],
             'format' => 'raw',
-            'value'=>function($data){
+            'value' => function ($data) {
                 return $data['mode'] == 0 ? "Manual" : "Auto";
             }
         ],

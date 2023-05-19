@@ -16,20 +16,30 @@ class OrderController extends Controller
 {
     public function actionOrders()
     {
-        $findParamName = 'id';
-        $findParamValue = '1';
-        $status = [];
-
-        $findedOrder = Order::findOrder($findParamName, $findParamValue, $status);
-        $users = User::getAllUsers();
-        $services = Service::getAllServices();
         $countServices = Order::getCountServices();
         $searchModel = new SearchOrder();
-        //var_dump(Yii::$app->request->get()->SearchOrder);
         $dataProvider = $searchModel->search(Yii::$app->request->get());
         $countOrders = Order::getCountOrders(); // for filter by service_id
-
-
-        return $this->render('orders', compact( 'dataProvider', 'searchModel', 'findedOrder', 'countOrders', 'users', 'services', 'countServices'));
+        return $this->render('orders', compact('dataProvider', 'searchModel', 'countOrders', 'countServices'));
     }
+
+
+    public function actionSearch()
+    {
+        $query = SearchOrder::find()->where(['like', 'search_attr', 'search_text']);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
+        ]);
+        return $this->render('orders', compact('dataProvider'));
+    }
+
+
 }
