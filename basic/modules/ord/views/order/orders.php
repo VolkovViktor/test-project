@@ -45,19 +45,14 @@ ActiveForm::end();
 */
 ?>
 
-<form method="get" action="index.php?r=ord/order/search">
-    <input type="text" name="search_text"/>
-    <select name="search_attr">
-        <option value="id">Orders Id</option>
-        <option value="user_id">Orders User</option>
-        <option value="link">Orders Link</option>
-    </select>
-    <button name="search" type="submit">Search</button>
-</form>
-
-
 <?php
-$form1 = ActiveForm::begin(['method' => 'get', 'action' => 'index.php?r=ord/order/orders']);
+$form1 = ActiveForm::begin(['method' => 'get', 'id' => 'form1', 'action' => 'index.php?r=ord/order/search']);
+echo Html::input('text', 'search_text');
+echo Html::dropDownList('search_attr', 'user_id', ['id', 'user_id', 'link']);
+echo Html::submitButton('Search');
+ActiveForm::end();
+
+$form2 = ActiveForm::begin(['method' => 'get', 'id' => 'form2', 'action' => 'index.php?r=ord/order/orders']);
 echo "<br/> <br/>";
 echo Html::submitButton('All orders');
 echo Html::submitButton('Pending', ['name' => 'status', 'value' => 'pending']);

@@ -26,7 +26,10 @@ class OrderController extends Controller
 
     public function actionSearch()
     {
-        $query = SearchOrder::find()->where(['like', 'search_attr', 'search_text']);
+        $attr = Yii::$app->request->get();
+        $arr = [0 => 'id', 1 => 'user_id', 2 => 'link'];
+        //var_dump($attr['search_text']);
+        $query = SearchOrder::find()->where(['like', $arr[$attr['search_attr']], $attr['search_text']]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
